@@ -1,0 +1,357 @@
+* {
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+body,
+.body.kedua,
+.body.ketiga,
+.body.keempat {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero,
+.hero2,
+.hero3,
+.hero4 {
+    width: 1100px;
+    margin: auto;
+    position: relative;
+}
+
+.logo a,
+.logo2 a,
+.logo3 a,
+.logo4 a {
+    font-size: 50px;
+    font-weight: 800;
+    float: left;
+    font-family: 'Courier New', Courier, monospace;
+    color: deeppink;
+}
+
+.menu,
+.menu2,
+.menu3,
+.menu4 {
+    float: right;
+}
+
+nav,
+nav.kedua,
+nav.ketiga,
+nav.keempat {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    line-height: 80px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 1;
+}
+
+nav ul,
+nav ul.kedua,
+nav ul.ketiga,
+nav ul.keempat {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav ul li,
+nav ul li.kedua,
+nav ul li.ketiga,
+nav ul li.keempat {
+    float: left;
+}
+
+nav ul li a,
+nav ul li a.kedua,
+nav ul li a.ketiga,
+nav ul li a.keempat {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    padding: 0px 16px 0px 16px;
+    text-decoration: none;
+}
+
+nav ul li a:hover,
+nav ul li a:hover.kedua,
+nav ul li a:hover.ketiga,
+nav ul li a:hover.keempat {
+    text-decoration: underline;
+}
+
+section {
+    margin-top: 50px;
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.kolom {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.kolom .deskripsi {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'comic sans ms';
+    color: black;
+}
+
+h2 {
+    font-family: 'comic sans ms';
+    font-weight: 800;
+    font-size: 45px;
+    margin-bottom: 20px;
+    color: black;
+    width: 100%;
+    line-height: 50px;
+}
+
+a.tbl-pink,
+a.tbl-pink7 {
+    background: black;
+    border-radius: 20px;
+    padding: 15px 20px 15px 20px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+a.tbl-pink:hover,
+a.tbl-pink7:hover {
+    background: deeppink;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 991.98px) {
+    .hero,
+    .hero2,
+    .hero3,
+    .hero4  {
+        width: 90%;
+    }
+
+    .logo a,
+    .logo2 a,
+    .logo3 a,
+    .logo4 a {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    nav .menu,
+    nav .menu2,
+    nav .menu3,
+    nav .menu4 {
+        width: 100%;
+        margin: 0;
+    }
+
+    nav .menu ul,
+    nav .menu2 ul,
+    nav .menu3 ul,
+    nav .menu4 ul {
+        text-align: center;
+        margin: auto;
+        line-height: 60px;
+    }
+
+    nav .menu ul li,
+    nav .menu2 ul li,
+    nav .menu3 ul li,
+    nav .menu4 ul li {
+        display: inline-block;
+        float: none;
+    }
+
+    section {
+        display: block;
+    }
+
+    section img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
+
+section {
+    margin-top: 50px;
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.kolom2 {
+    margin-top: 450px;
+    margin-bottom: 450px;
+    margin-right: 363px;
+}
+
+.kolom3 {
+    margin-top: -480px;
+    margin-bottom: 450px;
+    margin-left: 370px;
+}
+
+.kolom4 {
+    margin-top: 450px;
+    margin-bottom: 450px;
+    margin-left: 500px;
+}
+
+
+a.tombol2f {
+    color: #ffffff;
+    background: black;
+    cursor: pointer;
+    padding: 20px 15px 20px 15px;
+    border-radius: 20px;
+}
+a.tombol3f,
+a.tombolt {
+    color: #ffffff;
+    background: black;
+    cursor: pointer;
+    padding: 20px 15px 20px 15px;
+    border-radius: 20px;
+}
+
+
+a.tombol2f:hover,
+a.tombol3f:hover,
+a.tombolt:hover {
+    background: deeppink;
+    text-decoration: none;
+}
+
+.camera-container {
+    width: 320px;
+    margin-bottom: 20px;
+}
+
+video#video {
+    width: 100%;
+    border-radius: 10px;
+    background: black;
+}
+
+* {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+body,
+.body.ketiga {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.hero3 {
+  width: 1100px;
+  margin: auto;
+  position: relative;
+}
+.logo3 a {
+  font-size: 50px;
+  font-weight: 800;
+  float: left;
+  font-family: 'Courier New', Courier, monospace;
+  color: deeppink;
+}
+.menu3 {
+  float: right;
+}
+nav.ketiga {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  line-height: 80px;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 1;
+}
+nav.ketiga ul.ketiga {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+nav.ketiga ul.ketiga li.ketiga {
+  float: left;
+}
+nav.ketiga ul.ketiga li.ketiga a.tbl-pink3 {
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 16px;
+  text-decoration: none;
+}
+nav.ketiga ul.ketiga li.ketiga a.tbl-pink3:hover {
+  text-decoration: underline;
+}
+section {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+video {
+  width: 320px;
+  height: 240px;
+  border-radius: 10px;
+  background: black;
+}
+#canvas {
+  display: none;
+  margin-top: 20px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  width: 320px;
+  height: auto;
+}
+button#takePhotoBtn {
+  margin-top: 15px;
+  padding: 15px 30px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  border: none;
+  background: black;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+button#takePhotoBtn:hover {
+  background: deeppink;
+}
+
+.container {
+      display: flex;
+      justify-content: center;
+      gap: 170px;
+      align-items: center;
+      max-width: 1000px;
+      margin: auto;
+      margin-top: -950px;
+    }
+
+    .container img {
+      width: 20%; 
+      height: auto;
+      border-radius: 0px; 
+    }
+

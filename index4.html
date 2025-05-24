@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PickMyBooth</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      text-align: center;
+    }
+    #previewCanvas {
+      border: 6px solid deeppink;
+      border-radius: 15px;
+      max-width: 300px;
+      margin-top: 20px;
+    }
+    #downloadBtn {
+      margin-top: 30px;
+      padding: 15px 35px;
+      font-size: 20px;
+      background-color: deeppink;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #downloadBtn:disabled {
+      background-color: grey;
+      cursor: not-allowed;
+    }
+    .frame-selection {
+      margin-top: 30px;
+    }
+    .frame-selection img {
+      width: 80px;
+      margin: 0 10px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      border-radius: 10px;
+      transition: border-color 0.3s ease;
+    }
+    .frame-selection img.selected {
+      border-color: deeppink;
+    }
+    .color-selection {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .color-option {
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      transition: border 0.3s ease;
+    }
+    .color-option:hover {
+      border: 2px solid deeppink;
+    }
+  </style>
+</head>
+<body class="keempat">
+  <nav class="keempat">
+    <div class="hero4">
+      <div class="logo4"><a href="">PickMybooth</a></div>
+      <div class="menu4">
+        <ul class="keempat">
+          <li class="keempat"><a href="index3.html" class="tbl-pink4">BACK</a></li>
+          <li>DESAIN FRAME</li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero4">
+    <section>
+      <h1>THIS IS YOUR PHOTO</h1>
+      <canvas id="previewCanvas"></canvas>
+
+      <div class="frame-selection">
+        <h3>Pilih Frame</h3>
+        <img src="frame1.png" alt="Frame 1" class="frame-thumb" />
+        <img src="frame2.png" alt="Frame 2" class="frame-thumb" />
+        <img src="frame3.png" alt="Frame 3" class="frame-thumb" />
+      </div>
+
+      <div class="color-selection">
+        <h3>Pilih Warna Frame</h3>
+        <div class="color-option" data-color="#000000" style="background-color: #000000;"></div> <!-- Hitam -->
+        <div class="color-option" data-color="#FFFFFF" style="background-color: #FFFFFF; border: 1px solid #ccc;"></div> <!-- Putih -->
+        <div class="color-option" data-color="#FF69B4" style="background-color: #FF69B4;"></div> <!-- Pink -->
+        <div class="color-option" data-color="#A9A9A9" style="background-color: #A9A9A9;"></div> <!-- Abu-abu -->
+        <div class="color-option" data-color="#556B2F" style="background-color: #556B2F;"></div> <!-- Hijau Army -->
+        <div class="color-option" data-color="rainbow" style="background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);"></div> <!-- Rainbow -->
+        <div class="color-option" data-color="#8B0000" style="background-color: #8B0000;"></div> <!-- Merah Gelap -->
+        <div class="color-option" data-color="#00008B" style="background-color: #00008B;"></div> <!-- Dongker -->
+        <div class="color-option" data-color="#A0522D" style="background-color: #A0522D;"></div> <!-- Coklat -->
+        <div class="color-option" data-color="#FFB6C1" style="background-color: #FFB6C1;"></div> <!-- Pastel Pink -->
+        <div class="color-option" data-color="#B0E0E6" style="background-color: #B0E0E6;"></div> <!-- Pastel Biru -->
+        <div class="color-option" data-color="#E6E6FA" style="background-color: #E6E6FA;"></div> <!-- Pastel Ungu -->
+      </div>
+
+      <br />
+      <button id="downloadBtn" disabled>UNDUH</button>
+    </section>
+  </div>
+
+  <script>
+    const photos = JSON.parse(sessionStorage.getItem('photos') || '[]');
+const downloadBtn = document.getElementById('downloadBtn');
+const previewCanvas = document.getElementById('previewCanvas');
+const ctx = previewCanvas.getContext('2d');
+
+const frameThumbs = document.querySelectorAll('.frame-thumb');
+const colorOptions = document.querySelectorAll('.color-option');
+
+let selectedFrame = null;
+let selectedFrameColor = null;
+
+// 
+if (photos.length === 0) {
+  alert();
+  downloadBtn.disabled = true;
+} else {
+  downloadBtn.disabled = false;
+  renderPreview();
+}
+
+frameThumbs.forEach(img => {
+  img.addEventListener('click', () => {
+    frameThumbs.forEach(f => f.classList.remove('selected'));
+    img.classList.add('selected');
+    selectedFrame = img.src;
+    renderPreview();
+  });
+});
+
+colorOptions.forEach(option => {
+  option.addEventListener('click', () => {
+    colorOptions.forEach(opt => opt.style.outline = 'none');
+    option.style.outline = '4px solid deeppink';
+    selectedFrameColor = option.dataset.color;
+    renderPreview();
+  });
+});
+
+async function renderPreview() {
+  const dataUrl = await mergePhotosVerticallyWithFrame(photos, selectedFrame, selectedFrameColor);
+  const img = new Image();
+  img.onload = () => {
+    previewCanvas.width = img.width;
+    previewCanvas.height = img.height;
+    ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+    ctx.drawImage(img, 0, 0);
+    if(selectedFrameColor && selectedFrameColor !== 'rainbow'){
+      ctx.lineWidth = 35; 
+      ctx.strokeStyle = selectedFrameColor;
+      ctx.strokeRect(0, 0, previewCanvas.width, previewCanvas.height);
+    } else if(selectedFrameColor === 'rainbow'){
+      const gradient = ctx.createLinearGradient(0, 0, previewCanvas.width, 0);
+      gradient.addColorStop(0, 'red');
+      gradient.addColorStop(0.16, 'orange');
+      gradient.addColorStop(0.33, 'yellow');
+      gradient.addColorStop(0.5, 'green');
+      gradient.addColorStop(0.66, 'blue');
+      gradient.addColorStop(0.83, 'indigo');
+      gradient.addColorStop(1, 'violet');
+      ctx.lineWidth = 15;
+      ctx.strokeStyle = gradient;
+      ctx.strokeRect(0, 0, previewCanvas.width, previewCanvas.height);
+    }
+  };
+  img.src = dataUrl;
+
+  downloadBtn.onclick = () => {
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = 'PickMyBooth.png';
+    a.click();
+  };
+}
+
+async function mergePhotosVerticallyWithFrame(photoDataUrls, frameSrc, frameColor) {
+  return new Promise((resolve) => {
+    const images = [];
+    let loadedCount = 0;
+
+    if(photoDataUrls.length === 0) return resolve(null);
+
+    photoDataUrls.forEach((dataUrl, i) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        images[i] = img;
+        loadedCount++;
+        if (loadedCount === photoDataUrls.length) {
+          const width = Math.max(...images.map(img => img.width));
+          const height = images.reduce((sum, img) => sum + img.height, 0);
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+
+          let yOffset = 0;
+          images.forEach(img => {
+            ctx.drawImage(img, 0, yOffset, width, img.height);
+            yOffset += img.height;
+          });
+
+          if (frameSrc) {
+            const frameImg = new Image();
+            frameImg.crossOrigin = "anonymous";
+            frameImg.onload = () => {
+              const tempCanvas = document.createElement('canvas');
+              tempCanvas.width = canvas.width;
+              tempCanvas.height = canvas.height;
+              const tempCtx = tempCanvas.getContext('2d');
+
+tempCtx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
+
+if (frameColor && frameColor !== 'rainbow') {
+  ctx.lineWidth = 40;
+  ctx.strokeStyle = frameColor;
+  ctx.strokeRect(0, 0, canvas.width, canvas.height);
+} else if (frameColor === 'rainbow') {
+  const gradient = ctx.createLinearGradient(20, 15, canvas.width, 50);
+  gradient.addColorStop(0, 'red');
+  gradient.addColorStop(0.16, 'orange');
+  gradient.addColorStop(0.33, 'yellow');
+  gradient.addColorStop(0.5, 'green');
+  gradient.addColorStop(0.66, 'blue');
+  gradient.addColorStop(0.83, 'indigo');
+  gradient.addColorStop(1, 'violet');
+  ctx.lineWidth = 20;
+  ctx.strokeStyle = gradient;
+  ctx.strokeRect(0, 0, canvas.width, canvas.height);
+}
+              const watermarkText = "PickMyBooth";
+              ctx.font = 'bold 50px Arial';
+              ctx.fillStyle = 'rgba(255, 20, 147, 0.7)';
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+              
+              resolve(canvas.toDataURL('image/png'));
+            };
+            frameImg.onerror = () => {
+             
+              const watermarkText = "PickMyBooth";
+              ctx.font = 'bold 50px Arial';
+              ctx.fillStyle = 'rgba(255, 20, 147, 0.7)';
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+              ctx.fillText(watermarkText, canvas.width / 2, canvas.height - 15);
+
+              resolve(canvas.toDataURL('image/png'));
+            };
+            frameImg.src = frameSrc;
+          } else {
+          
+            const watermarkText = "PickMyBooth";
+            ctx.font = 'bold 40px Arial';
+            ctx.fillStyle = 'rgba(255, 20, 147, 0.7)';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            ctx.fillText(watermarkText, canvas.width / 2, canvas.height - 15);
+
+            resolve(canvas.toDataURL('image/png'));
+          }
+        }
+      };
+      img.src = dataUrl;
+    });
+  });
+}
+
+
+  </script>
+</body>
+</html>
